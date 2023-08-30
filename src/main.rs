@@ -46,10 +46,15 @@ fn main() {
     let args: Vec<String> = env::args().collect();
     
     let mut search_pathname = "./";
-    let level=3;
-    if args.len() > 1{
-        search_pathname = &args[1];
-        println!("Searching path {}",search_pathname);
+    let mut level:u8=3;
+
+    for (i,arg) in args.iter().enumerate(){
+        if i==1{
+            search_pathname = &arg;
+            println!("Searching path {}",search_pathname);
+        }else if i==2 {
+            level = arg.trim().parse().expect("Enter valid integer");
+        }
     }
     
     let paths = fs::read_dir(search_pathname).unwrap();
